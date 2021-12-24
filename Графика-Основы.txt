@@ -1,0 +1,32 @@
+#подключи нужные модули PIL
+from PIL import Image, ImageFilter
+#создай класс ImageEditor
+class Image_Editor():
+    #создай конструктор класса
+    def __init__(self,filename):
+        self.filename = filename
+        self.original = None
+        self.changed = list()
+    #создай метод "открыть и показать оригинал"
+    def opene(self):
+        try:
+            self.original = Image.open(self.filename)
+        except:
+            print('Файл е найден!')
+        self.original.show()
+    #создай методы для редактирования оригинала
+    def do_left(self):
+        self.left = self.original.transpose(Image.ROTATE_90)
+        self.left.save('original.jpg')
+        self.left.show()
+    def cropped(self):
+        self.box = (100, 100, 600, 750)
+        self.crope = self.original.crop(self.box)
+        self.crope.save('cropped.jpg')
+        self.crope.show()
+#создай объект класса ImageEditor с данными картинки-оригинала
+MyImage = Image_Editor('original.jpg')
+#отредактируй изображение и сохрани результат
+MyImage.opene()
+MyImage.do_left()
+MyImage.cropped()
